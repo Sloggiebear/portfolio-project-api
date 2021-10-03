@@ -1,0 +1,28 @@
+body {
+  font-size: 1.2rem;
+  font-family: "Courier New", Courier, monospace;
+}
+.country {
+  padding: 20px;
+}
+.reveal {
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 120%;
+    height: 200%;
+    background-color: rgb(102, 102, 102);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all ease 0.5s;
+    cursor: pointer;
+    transform: translate(-5%, -25%);
+  }
+
+  &:hover::after {
+    opacity: 0;
+  }
+}
