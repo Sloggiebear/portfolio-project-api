@@ -1,20 +1,20 @@
-
 //Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     getCountries()
-    console.log("Checking for local countries...")
 })
 
 let countrylist
+// let africalist = regionSpecificCountries("Africa") 
 
 function newCountry () {
-    const country = apiCountries[Math.floor(Math.random() * apiCountries.length)]
-    console.log("this is the country", country)
+    const country = countrylist[Math.floor(Math.random() * countrylist.length)]
+    countryname = document.getElementById('countryname');
+    countryname.innerHTML = "";
+    countryname.innerHTML = country.name; 
 
-    div = document.createElement('div')
-    div.classList.add('country')
-    div.innerHTML = country.name
-    document.body.appendChild(div)
+    answer = document.getElementById('answer');
+    answer.innerHTML = "";
+    answer.innerHTML = country.capital; 
 }
 
 async function getCountries() {
@@ -27,10 +27,12 @@ async function getCountries() {
         console.log("No local storage found")
 
         try {
-            const response = await fetch(apiUrl)
-            localcountries = await response.json()
-            localStorage.setItem("localcountries", JSON.stringify(localcountries))
-            countrylist = localcountries
+            const response = await fetch(apiUrl);
+            rawlist = await response.json();
+            localcountries = await rawlist.filter(country => country.capital != "" );
+            localStorage.setItem("localcountries", JSON.stringify(localcountries));
+            countrylist = localcountries;
+            newCountry();
 
         } catch (error) {
             console.log("Sorry there was an error: " , error)
@@ -40,7 +42,17 @@ async function getCountries() {
         localcountries = JSON.parse(localStorage.getItem("localcountries"))
         console.log("found local storage countries", localcountries)
         countrylist = localcountries
+        newCountry();
     }
 }
 
-
+// function regionSpecificCountries(region) {
+//     regionlist = []
+//     countrylist.forEach(country => {
+//         if (country.region === region) {
+//             regionlist.push(country);
+//             console.log(region,":", regionlist)
+//         }
+//     }
+//     )
+// }

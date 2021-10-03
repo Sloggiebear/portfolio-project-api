@@ -4,15 +4,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <link rel="stylesheet" href="app.css" />
 
-    <title>What is the capital of...</title>
+    <title>Where in the world</title>
   </head>
   <body>
-    <div id="container">
-      <h1>What is the capital of</h1>
+    <div class="container">
+      <h1>You're Geography Sux, Bro</h1>
+      <div class="question-wrapper">
+        <p>
+          What is the capital of
+          <span class="countryname" id="countryname"></span>?
+        </p>
+      </div>
+      <span id="answer" class="reveal"></span>
+      <a href="#" class="btn-next" onclick="newCountry()">Next</a>
+      <label for="selectregion">show me countries from... </label>
+      <select name="selectregion" id="selectregion"></select>
+      <script src="app.js"></script>
     </div>
-    <button onclick="getCountry()">Next</button>
-    <script src="app.js"></script>
   </body>
 </html>

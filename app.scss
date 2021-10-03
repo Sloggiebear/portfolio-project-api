@@ -1,28 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Knewave&display=swap");
+
 body {
   font-size: 1.2rem;
   font-family: "Courier New", Courier, monospace;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
 }
-.country {
-  padding: 20px;
+
+h1 {
+  font-family: "Knewave", cursive;
 }
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  padding: 1rem;
+}
+
+.question-wrapper {
+  min-height: 7rem;
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto 2rem auto;
+  align-items: center;
+}
+
+.countryname {
+  font-weight: bold;
+}
+
 .reveal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  margin: 40px auto 60px auto;
+  padding: 20px 0px 20px 0px;
 
   &::after {
-    content: "";
-    display: block;
-    width: 120%;
-    height: 200%;
-    background-color: rgb(102, 102, 102);
+    content: "Ugh... tell me";
+    display: flex;
+    padding: 20px 0px 20px 0px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+    background-color: grey;
     position: absolute;
     top: 0;
     left: 0;
-    transition: all ease 0.5s;
+    opacity: 1;
+    transition: opacity ease 0.5s;
     cursor: pointer;
-    transform: translate(-5%, -25%);
   }
 
   &:hover::after {
     opacity: 0;
+  }
+}
+
+.btn-next {
+  display: block;
+  width: 200px;
+  border-radius: 15px;
+  border: 3px solid grey;
+  color: grey;
+  background-color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 20px auto 20px auto;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    border-color: black;
   }
 }
