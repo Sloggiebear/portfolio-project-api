@@ -1,12 +1,29 @@
+answerCover = document.getElementById('answer-cover');
+settings = document.getElementById('btn-settings');
+modal = document.getElementById('modal');
+close = document.getElementById('btn-close');
+
+
 //Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     getCountries()
 })
+answerCover.addEventListener('click', () => {
+    answerCover.classList.add('d-none');
+})
+settings.addEventListener('click', () => {
+    modal.classList.toggle('d-block');
+})
+close.addEventListener('click', () => {
+    modal.classList.toggle('d-block');
+})
+
 
 let countrylist
 // let africalist = regionSpecificCountries("Africa") 
 
 function newCountry () {
+    answerCover.classList.remove('d-none');
     const country = countrylist[Math.floor(Math.random() * countrylist.length)]
     countryname = document.getElementById('countryname');
     countryname.innerHTML = "";

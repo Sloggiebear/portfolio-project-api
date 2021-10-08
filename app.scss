@@ -1,9 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Knewave&display=swap");
 
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
 body {
   font-size: 1.2rem;
   font-family: "Courier New", Courier, monospace;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -19,6 +24,7 @@ h1 {
   margin: auto;
   text-align: center;
   padding: 1rem;
+  position: relative;
 }
 
 .question-wrapper {
@@ -33,33 +39,33 @@ h1 {
   font-weight: bold;
 }
 
-.reveal {
+.answer-container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   margin: 40px auto 60px auto;
   padding: 20px 0px 20px 0px;
+}
 
-  &::after {
-    content: "Ugh... tell me";
-    display: flex;
-    padding: 20px 0px 20px 0px;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    color: white;
-    background-color: grey;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 1;
-    transition: opacity ease 0.5s;
-    cursor: pointer;
-  }
+.answer-cover {
+  display: flex;
+  padding: 20px 0px 20px 0px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: white;
+  background-color: grey;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  opacity: 1;
+  transition: all ease 0.2s;
+  cursor: pointer;
 
-  &:hover::after {
-    opacity: 0;
+  &:hover {
+    background-color: rgb(70, 70, 70);
   }
 }
 
@@ -79,5 +85,73 @@ h1 {
     background-color: black;
     color: white;
     border-color: black;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-settings {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+
+  &:hover {
+    animation: spin 2s infinite;
+  }
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.modal-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.445);
+  z-index: 10;
+}
+
+.modal-content {
+  width: minmax(100%, 350px);
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.btn-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  color: white;
+  background-color: black;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.5s;
+
+  &:hover {
+    background-color: gray;
   }
 }

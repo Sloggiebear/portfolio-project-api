@@ -10,6 +10,12 @@
   </head>
   <body>
     <div class="container">
+      <img
+        id="btn-settings"
+        src="/img/settings.svg"
+        class="btn-settings"
+        alt=""
+      />
       <h1>You're Geography Sux, Bro</h1>
       <div class="question-wrapper">
         <p>
@@ -17,11 +23,22 @@
           <span class="countryname" id="countryname"></span>?
         </p>
       </div>
-      <span id="answer" class="reveal"></span>
+      <div id="cover" class="answer-container">
+        <span id="answer" class=""></span>
+        <div id="answer-cover" class="answer-cover">Hmm...I dunno</div>
+      </div>
       <a href="#" class="btn-next" onclick="newCountry()">Next</a>
-      <label for="selectregion">show me countries from... </label>
-      <select name="selectregion" id="selectregion"></select>
-      <script src="app.js"></script>
     </div>
+    <div id="modal" class="modal-wrapper d-none">
+      <div class="modal-content">
+        <span id="btn-close" class="btn-close">x</span>
+        <h1>Settings</h1>
+        <label for="selectregion">show me countries from... </label>
+        <select name="selectregion" id="selectregion"></select>
+        <hr />
+        Developed by <a href="#">Logan McLain</a>
+      </div>
+    </div>
+    <script src="app.js"></script>
   </body>
 </html>
