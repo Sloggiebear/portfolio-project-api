@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-size: 1.2rem;
   font-family: "Courier New", Courier, monospace;
@@ -69,22 +74,25 @@ h1 {
 }
 
 .btn-next {
-  display: block;
-  width: 200px;
-  border-radius: 15px;
-  border: 3px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 75px;
+  background-image: url(./img/next.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   color: grey;
-  background-color: white;
-  padding: 10px 20px;
+  padding: 10px;
   text-transform: uppercase;
   text-decoration: none;
   margin: 20px auto 20px auto;
 }
 
 .btn-next:hover {
-  background-color: black;
   color: white;
-  border-color: black;
+  background-position-y: 49%;
 }
 
 @keyframes spin {
@@ -126,7 +134,8 @@ h1 {
 }
 
 .modal-content {
-  width: minmax(100%, 350px);
+  width: 90%;
+  max-width: 400px;
   background-color: white;
   position: absolute;
   left: 50%;
@@ -141,8 +150,8 @@ h1 {
   justify-content: center;
   align-items: center;
   margin-left: auto;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   color: white;
   background-color: black;
   text-align: center;
@@ -153,4 +162,58 @@ h1 {
 
 .btn-close:hover {
   background-color: gray;
+}
+
+#modal p {
+  margin: 20px 0px;
+}
+
+#modal div {
+  margin-bottom: 10px;
+}
+
+.credit {
+  font-size: 0.8rem;
+  margin: 0px;
+}
+
+.credit a {
+  text-decoration: none;
+  color: gray;
+}
+
+.credit a:hover {
+  color: #000;
+  border-bottom: 1px dotted #000000;
+}
+
+input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.customlabel {
+  display: flex;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+  padding-left: 30px;
+  margin: 0px 10px;
+  background-image: url(./img/checkbox.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+input[type="checkbox"]:checked ~ .customlabel:after {
+  display: flex;
+  content: "";
+  background-image: url("./img/tick.svg");
+  background-size: 15px 15px;
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

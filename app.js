@@ -1,7 +1,10 @@
 answerCover = document.getElementById('answer-cover');
 settings = document.getElementById('btn-settings');
 modal = document.getElementById('modal');
-close = document.getElementById('btn-close');
+closeButton = document.getElementById('btn-close');
+getRegions = [...document.getElementsByClassName('customlabel')];
+regionFilters = getRegions.filter(item => item.innerHTML)
+console.log(regionFilters)
 
 
 //Event Listeners
@@ -14,13 +17,12 @@ answerCover.addEventListener('click', () => {
 settings.addEventListener('click', () => {
     modal.classList.toggle('d-block');
 })
-close.addEventListener('click', () => {
+closeButton.addEventListener('click', () => {
     modal.classList.toggle('d-block');
 })
 
 
 let countrylist
-// let africalist = regionSpecificCountries("Africa") 
 
 function newCountry () {
     answerCover.classList.remove('d-none');
@@ -57,7 +59,6 @@ async function getCountries() {
         
     } else {
         localcountries = JSON.parse(localStorage.getItem("localcountries"))
-        console.log("found local storage countries", localcountries)
         countrylist = localcountries
         newCountry();
     }
@@ -73,3 +74,10 @@ async function getCountries() {
 //     }
 //     )
 // }
+
+
+// regionList = countrylist.filter(country => country.region === "Africa")
+// console.log(regionList)
+
+// regions = new Set(countrylist.map(country => country.region));
+// console.log(regions)

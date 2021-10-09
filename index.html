@@ -9,14 +9,14 @@
     <title>Where in the world</title>
   </head>
   <body>
+    <img
+      id="btn-settings"
+      src="/img/settings.svg"
+      class="btn-settings"
+      alt=""
+    />
     <div class="container">
-      <img
-        id="btn-settings"
-        src="/img/settings.svg"
-        class="btn-settings"
-        alt=""
-      />
-      <h1>You're Geography Sux, Bro</h1>
+      <h1>Your Geography Sux, Bro</h1>
       <div class="question-wrapper">
         <p>
           What is the capital of
@@ -33,10 +33,37 @@
       <div class="modal-content">
         <span id="btn-close" class="btn-close">x</span>
         <h1>Settings</h1>
-        <label for="selectregion">show me countries from... </label>
-        <select name="selectregion" id="selectregion"></select>
-        <hr />
-        Developed by <a href="#">Logan McLain</a>
+        <p>Show me countries from...</p>
+
+        <div id="region-settings">
+          <div>
+            <input type="checkbox" name="Europe" id="Europe" checked>
+            <label class="customlabel" for="Europe">Europe</label>
+  
+          </div>
+  
+          <div>
+            <input type="checkbox" name="Asia" id="Asia" checked>
+            <label class="customlabel" for="Asia">Asia</label>
+          </div>
+  
+          <div>
+            <input type="checkbox" value="Africa" name="Africa" id="Africa" checked>
+            <label class="customlabel" for="Africa">Africa</label>
+          </div>
+  
+          <div>
+            <input type="checkbox" value="Americas" name="Americas" id="Americas" checked>
+            <label class="customlabel" for="Americas">Americas</label>
+          </div>
+  
+          <div>
+            <input type="checkbox" value="Oceania" name="Oceania" id="Oceania" checked></input>
+            <label class="customlabel" for="Oceania">Oceania</label>
+          </div>
+        </div>
+
+        <p class="credit"><a href="https://www.amberandemerald.com">Logan McLain</a> made this shameful tool using the <a href="http://countrylayer.com/" target="_blank">Country Layer API</a> </p>
       </div>
     </div>
     <script src="app.js"></script>
