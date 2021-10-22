@@ -1,28 +1,46 @@
-answerCover = document.getElementById('answer-cover');
-settings = document.getElementById('btn-settings');
-modal = document.getElementById('modal');
-closeButton = document.getElementById('btn-close');
-getRegions = [...document.getElementsByClassName('customlabel')];
-regionFilters = getRegions.filter(item => item.innerHTML)
-console.log(regionFilters)
+let countrylist
 
+const answerCover = document.getElementById('answer-cover');
+const settings = document.getElementById('btn-settings');
+const modal = document.getElementById('modal');
+const closeButton = document.getElementById('btn-close');
 
-//Event Listeners
+let checkboxElements = document.querySelectorAll("input[type=checkbox]");
+let enabledSettings = filterCountriesByRegion();
+swal("Hello world!");
+
+//EVENT LISTENERS
+
+//onload - Get a country
 document.addEventListener('DOMContentLoaded', () => {
     getCountries()
 })
+//onclick - Reveal the answer
 answerCover.addEventListener('click', () => {
     answerCover.classList.add('d-none');
 })
+
+//onclick - Show the settings modal
 settings.addEventListener('click', () => {
     modal.classList.toggle('d-block');
 })
+
+//onclick - Hide the settings modal
 closeButton.addEventListener('click', () => {
     modal.classList.toggle('d-block');
 })
 
+//onlcick - Update the enabled settings checkboxes for filtering countries by region
+for (var i = 0; i < checkboxElements.length; i++) {
+    checkboxElements[i].addEventListener('change', (e) => {
+        filterCountriesByRegion();
+    })
+}
 
-let countrylist
+
+
+
+
 
 function newCountry () {
     answerCover.classList.remove('d-none');
@@ -64,20 +82,24 @@ async function getCountries() {
     }
 }
 
-// function regionSpecificCountries(region) {
-//     regionlist = []
-//     countrylist.forEach(country => {
-//         if (country.region === region) {
-//             regionlist.push(country);
-//             console.log(region,":", regionlist)
-//         }
-//     }
-//     )
-// }
+function filterCountriesByRegion() {
+    getRegions = [...document.getElementsByClassName('region')];
+    let regionFilters = [];
+    getRegions.forEach(element => {
+        if (element.checked) {
+            regionFilters.push(element.name);
+        }
+    });
+    if (regionFilters.length == 0) {
+        alert("You can't play with no countries, Wakanda Forever Baby")
+        let wakanda = document.getElementById(Africa);
+        Africa.checked = true;
+        return "Africa"
 
 
-// regionList = countrylist.filter(country => country.region === "Africa")
-// console.log(regionList)
-
-// regions = new Set(countrylist.map(country => country.region));
-// console.log(regions)
+    }
+    else {
+        return regionFilters;
+    }
+        
+}

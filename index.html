@@ -25,40 +25,40 @@
       </div>
       <div id="cover" class="answer-container">
         <span id="answer" class=""></span>
-        <div id="answer-cover" class="answer-cover">Hmm...I dunno</div>
+        <div id="answer-cover" class="answer-cover"></div>
       </div>
-      <a href="#" class="btn-next" onclick="newCountry()">Next</a>
+      <a href="#" class="btn-next" onclick="newCountry()"></a>
     </div>
     <div id="modal" class="modal-wrapper d-none">
       <div class="modal-content">
-        <span id="btn-close" class="btn-close">x</span>
+        <span id="btn-close" class="btn-close"></span>
         <h1>Settings</h1>
         <p>Show me countries from...</p>
 
         <div id="region-settings">
           <div>
-            <input type="checkbox" name="Europe" id="Europe" checked>
+            <input class="region" type="checkbox" name="Europe" id="Europe" checked>
             <label class="customlabel" for="Europe">Europe</label>
   
           </div>
   
           <div>
-            <input type="checkbox" name="Asia" id="Asia" checked>
+            <input class="region" type="checkbox" name="Asia" id="Asia" checked>
             <label class="customlabel" for="Asia">Asia</label>
           </div>
   
           <div>
-            <input type="checkbox" value="Africa" name="Africa" id="Africa" checked>
+            <input class="region" type="checkbox" value="Africa" name="Africa" id="Africa" checked>
             <label class="customlabel" for="Africa">Africa</label>
           </div>
   
           <div>
-            <input type="checkbox" value="Americas" name="Americas" id="Americas" checked>
+            <input class="region" type="checkbox" value="Americas" name="Americas" id="Americas" checked>
             <label class="customlabel" for="Americas">Americas</label>
           </div>
   
           <div>
-            <input type="checkbox" value="Oceania" name="Oceania" id="Oceania" checked></input>
+            <input class="region" type="checkbox" value="Oceania" name="Oceania" id="Oceania" checked></input>
             <label class="customlabel" for="Oceania">Oceania</label>
           </div>
         </div>
@@ -67,5 +67,7 @@
       </div>
     </div>
     <script src="app.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
   </body>
 </html>

@@ -147,21 +147,21 @@ h1 {
 }
 
 .btn-close {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  background-image: url(./img/close.svg);
   margin-left: auto;
-  width: 25px;
-  height: 25px;
-  color: white;
-  background-color: black;
-  text-align: center;
+  width: 35px;
+  height: 35px;
+  padding: 10px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.5s;
+  border-radius: 50%;
+  transition: border 0.5s;
+  background-size: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
 
   &:hover {
-    background-color: gray;
+    outline: 1px solid #000;
   }
 }
 
