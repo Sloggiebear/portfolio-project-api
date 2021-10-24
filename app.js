@@ -1,19 +1,27 @@
-let countrylist
+var countrylist = []
+var filteredcountrylist = [];
+var enabledSettings = [];
+
+let AfricaList = [];
+let AmericasList = [];
+let AsiaList = [];
+let EuropeList = [];
+let OceaniaList = [];
 
 const answerCover = document.getElementById('answer-cover');
 const settings = document.getElementById('btn-settings');
 const modal = document.getElementById('modal');
 const closeButton = document.getElementById('btn-close');
+const checkboxElements = document.querySelectorAll("input[type=checkbox]");
 
-let checkboxElements = document.querySelectorAll("input[type=checkbox]");
-let enabledSettings = filterCountriesByRegion();
-swal("Hello world!");
 
 //EVENT LISTENERS
 
 //onload - Get a country
 document.addEventListener('DOMContentLoaded', () => {
     getCountries()
+    getEnabledSettings();
+    newCountry();
 })
 //onclick - Reveal the answer
 answerCover.addEventListener('click', () => {
@@ -33,18 +41,13 @@ closeButton.addEventListener('click', () => {
 //onlcick - Update the enabled settings checkboxes for filtering countries by region
 for (var i = 0; i < checkboxElements.length; i++) {
     checkboxElements[i].addEventListener('change', (e) => {
-        filterCountriesByRegion();
+        getEnabledSettings();
     })
 }
 
-
-
-
-
-
-function newCountry () {
+function newCountry() {
     answerCover.classList.remove('d-none');
-    const country = countrylist[Math.floor(Math.random() * countrylist.length)]
+    const country = filteredcountrylist[Math.floor(Math.random() * filteredcountrylist.length)]
     countryname = document.getElementById('countryname');
     countryname.innerHTML = "";
     countryname.innerHTML = country.name; 
@@ -69,37 +72,71 @@ async function getCountries() {
             localcountries = await rawlist.filter(country => country.capital != "" );
             localStorage.setItem("localcountries", JSON.stringify(localcountries));
             countrylist = localcountries;
-            newCountry();
+            generateRegionalLists();
+            // newCountry();
 
         } catch (error) {
             console.log("Sorry there was an error: " , error)
         }
         
     } else {
+        console.log("Found Local storage");
         localcountries = JSON.parse(localStorage.getItem("localcountries"))
-        countrylist = localcountries
-        newCountry();
+        countrylist = localcountries;
+        generateRegionalLists();
+        // newCountry();
     }
 }
 
-function filterCountriesByRegion() {
+function getEnabledSettings() {
     getRegions = [...document.getElementsByClassName('region')];
-    let regionFilters = [];
+    console.log("regions: ", getRegions);
+
+    enabledSettings = [];
     getRegions.forEach(element => {
         if (element.checked) {
-            regionFilters.push(element.name);
+            enabledSettings.push(element.name);
         }
+        console.log("enabled settings", enabledSettings)
     });
-    if (regionFilters.length == 0) {
-        alert("You can't play with no countries, Wakanda Forever Baby")
-        let wakanda = document.getElementById(Africa);
-        Africa.checked = true;
-        return "Africa"
-
-
+    if (enabledSettings.length == 0) {
+        swal({
+            icon: '',
+            title: 'WAKANDA FOREVER!',
+            text: 'At least one region must be selected.',
+            button: {
+                className: "btn-swal",
+                text: "",
+                background: "none"
+            }
+        }) 
+        
+        let wakanda = document.getElementById('Africa');
+        // console.log(wakanda);
+        wakanda.checked = true;
+        enabledSettings = ['Africa'];
+        filteredcountrylist = AfricaList;
     }
     else {
-        return regionFilters;
+        filteredcountrylist = []
+        enabledSettings.forEach(element => {
+            // console.log("filtering: ", element)
+            // var name = element + "list";
+            // console.log(name)
+            // name=(name.toString());
+            ref = eval(element+"List");
+            console.log(ref);
+            filteredcountrylist = filteredcountrylist.concat(ref);
+        });
+        // console.log("current filtered list: ", filteredcountrylist)
     }
-        
+}
+
+
+function generateRegionalLists() {
+    AfricaList = countrylist.filter(country => country.region == "Africa" );
+    AmericasList = countrylist.filter(country => country.region == "Americas" );
+    AsiaList = countrylist.filter(country => country.region == "Asia" );
+    EuropeList = countrylist.filter(country => country.region == "Europe" );
+    OceaniaList = countrylist.filter(country => country.region == "Oceania" ); 
 }
