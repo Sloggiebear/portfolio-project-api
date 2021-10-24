@@ -13,9 +13,9 @@ const settings = document.getElementById('btn-settings');
 const modal = document.getElementById('modal');
 const closeButton = document.getElementById('btn-close');
 const checkboxElements = document.querySelectorAll("input[type=checkbox]");
+const nextButton = document.getElementById('next');
 
-
-//EVENT LISTENERS
+// EVENT LISTENERS //
 
 //onload - Get a country
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
     getEnabledSettings();
     newCountry();
 })
+
+//onclick - Get next country
+nextButton.addEventListener('click', () => {
+    newCountry();
+})
+
 //onclick - Reveal the answer
 answerCover.addEventListener('click', () => {
     answerCover.classList.add('d-none');
@@ -59,45 +65,46 @@ function newCountry() {
 
 async function getCountries() {
     
-    const apiUrl ='http://api.countrylayer.com/v2/all?access_key=578f857d4210a11edcda5243a2d175ed'
-    let localcountries
+    const apiUrl ='http://api.countrylayer.com/v2/all?access_key=578f857d4210a11edcda5243a2d175ed';
+    let localcountries = [];
 
     //Check if a list of counrties is already stored in Local storage. If not, fetch list via API
     if (localStorage.getItem("localcountries") === null) {
-        console.log("No local storage found")
+        console.log("No local storage found");
 
         try {
-            const response = await fetch(apiUrl);
+            let response = await fetch(apiUrl);
             rawlist = await response.json();
             localcountries = await rawlist.filter(country => country.capital != "" );
+            console.log("download to: ", localcountries)
             localStorage.setItem("localcountries", JSON.stringify(localcountries));
-            countrylist = localcountries;
-            generateRegionalLists();
-            // newCountry();
-
+            console.log("downlaoded and local countries", localcountries)
+            countrylist = [...localcountries];
+            
         } catch (error) {
-            console.log("Sorry there was an error: " , error)
+            console.log("Sorry there was an error: ", error)
         }
+        generateRegionalLists();
+        newCountry();
         
     } else {
         console.log("Found Local storage");
         localcountries = JSON.parse(localStorage.getItem("localcountries"))
-        countrylist = localcountries;
+        countrylist = [...localcountries];
         generateRegionalLists();
-        // newCountry();
     }
+    
+
 }
 
 function getEnabledSettings() {
+    console.log("Getting the enabled settings");
     getRegions = [...document.getElementsByClassName('region')];
-    console.log("regions: ", getRegions);
-
     enabledSettings = [];
     getRegions.forEach(element => {
         if (element.checked) {
             enabledSettings.push(element.name);
         }
-        console.log("enabled settings", enabledSettings)
     });
     if (enabledSettings.length == 0) {
         swal({
@@ -112,7 +119,6 @@ function getEnabledSettings() {
         }) 
         
         let wakanda = document.getElementById('Africa');
-        // console.log(wakanda);
         wakanda.checked = true;
         enabledSettings = ['Africa'];
         filteredcountrylist = AfricaList;
@@ -120,20 +126,13 @@ function getEnabledSettings() {
     else {
         filteredcountrylist = []
         enabledSettings.forEach(element => {
-            // console.log("filtering: ", element)
-            // var name = element + "list";
-            // console.log(name)
-            // name=(name.toString());
             ref = eval(element+"List");
-            console.log(ref);
             filteredcountrylist = filteredcountrylist.concat(ref);
         });
-        // console.log("current filtered list: ", filteredcountrylist)
     }
 }
 
-
-function generateRegionalLists() {
+async function generateRegionalLists() {
     AfricaList = countrylist.filter(country => country.region == "Africa" );
     AmericasList = countrylist.filter(country => country.region == "Americas" );
     AsiaList = countrylist.filter(country => country.region == "Asia" );
