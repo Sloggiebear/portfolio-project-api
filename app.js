@@ -1,4 +1,5 @@
 var countrylist = []
+let localcountries = [];
 var filteredcountrylist = [];
 var enabledSettings = [];
 
@@ -8,6 +9,7 @@ let AsiaList = [];
 let EuropeList = [];
 let OceaniaList = [];
 
+const apiURL ='http://api.countrylayer.com/v2/all?access_key=578f857d4210a11edcda5243a2d175ed';
 const answerCover = document.getElementById('answer-cover');
 const settings = document.getElementById('btn-settings');
 const modal = document.getElementById('modal');
@@ -16,13 +18,6 @@ const checkboxElements = document.querySelectorAll("input[type=checkbox]");
 const nextButton = document.getElementById('next');
 
 // EVENT LISTENERS //
-
-//onload - Get a country
-document.addEventListener('DOMContentLoaded', () => {
-    getCountries()
-    getEnabledSettings();
-    newCountry();
-})
 
 //onclick - Get next country
 nextButton.addEventListener('click', () => {
@@ -53,6 +48,7 @@ for (var i = 0; i < checkboxElements.length; i++) {
 
 function newCountry() {
     answerCover.classList.remove('d-none');
+
     const country = filteredcountrylist[Math.floor(Math.random() * filteredcountrylist.length)]
     countryname = document.getElementById('countryname');
     countryname.innerHTML = "";
@@ -63,17 +59,14 @@ function newCountry() {
     answer.innerHTML = country.capital; 
 }
 
-async function getCountries() {
-    
-    const apiUrl ='http://api.countrylayer.com/v2/all?access_key=578f857d4210a11edcda5243a2d175ed';
-    let localcountries = [];
+async function getCountries(apiURL) {
 
     //Check if a list of counrties is already stored in Local storage. If not, fetch list via API
-    if (localStorage.getItem("localcountries") === null) {
+    if (localStorage.getItem("localcountries") === null || localStorage.length < 1) {
         console.log("No local storage found");
 
         try {
-            let response = await fetch(apiUrl);
+            let response = await fetch(apiURL);
             rawlist = await response.json();
             localcountries = await rawlist.filter(country => country.capital != "" );
             console.log("download to: ", localcountries)
@@ -84,8 +77,8 @@ async function getCountries() {
         } catch (error) {
             console.log("Sorry there was an error: ", error)
         }
-        generateRegionalLists();
-        newCountry();
+        // generateRegionalLists();
+        // newCountry();
         
     } else {
         console.log("Found Local storage");
@@ -127,15 +120,24 @@ function getEnabledSettings() {
         filteredcountrylist = []
         enabledSettings.forEach(element => {
             ref = eval(element+"List");
-            filteredcountrylist = filteredcountrylist.concat(ref);
+            filteredcountrylist.push(ref);
+            console.log(filteredcountrylist)
+            
         });
+        filteredcountrylist.flat(2);
+        console.log(filteredcountrylist)
     }
 }
 
-async function generateRegionalLists() {
+function generateRegionalLists() {
     AfricaList = countrylist.filter(country => country.region == "Africa" );
     AmericasList = countrylist.filter(country => country.region == "Americas" );
     AsiaList = countrylist.filter(country => country.region == "Asia" );
     EuropeList = countrylist.filter(country => country.region == "Europe" );
     OceaniaList = countrylist.filter(country => country.region == "Oceania" ); 
 }
+
+getCountries(apiURL)
+getEnabledSettings();
+generateRegionalLists();
+newCountry();
