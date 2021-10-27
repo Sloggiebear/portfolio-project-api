@@ -1,5 +1,5 @@
-var countrylist = []
-let localcountries = [];
+var countrylist = [];
+let localcountries;
 var filteredcountrylist = [];
 var enabledSettings = [];
 
@@ -9,7 +9,8 @@ let AsiaList = [];
 let EuropeList = [];
 let OceaniaList = [];
 
-const apiURL ='http://api.countrylayer.com/v2/all?access_key=578f857d4210a11edcda5243a2d175ed';
+const apiURL ='http://api.countrylayer.com/v2/all?access_key=4e65e880be2cb3ca68403e03fb82c7f0'; //logan's API key
+// const apiURL ='http://api.countrylayer.com/v2/all?access_key=578f857d4210a11edcda5243a2d175ed'; //Amber and Emerald's API key 
 const answerCover = document.getElementById('answer-cover');
 const settings = document.getElementById('btn-settings');
 const modal = document.getElementById('modal');
@@ -124,8 +125,8 @@ function getEnabledSettings() {
             console.log(filteredcountrylist)
             
         });
-        filteredcountrylist.flat(2);
-        console.log(filteredcountrylist)
+        flattenedArray = filteredcountrylist.flat(2);
+        filteredcountrylist = [...flattenedArray];
     }
 }
 
