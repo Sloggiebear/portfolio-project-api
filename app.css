@@ -214,6 +214,8 @@ h1 {
 .credit {
   font-size: 0.8rem;
   margin: 0px;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .credit a {

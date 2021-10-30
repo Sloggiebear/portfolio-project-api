@@ -73,10 +73,6 @@ h1 {
   transition: all ease 0.2s;
   cursor: pointer;
 
-  &:hover {
-    // background-color: rgb(70, 70, 70);
-  }
-
   &:after {
     content: "Show Answer";
     color: white;
@@ -221,6 +217,8 @@ h1 {
 .credit {
   font-size: 0.8rem;
   margin: 0px;
+  text-align: center;
+  margin-top: 30px;
 
   a {
     text-decoration: none;
