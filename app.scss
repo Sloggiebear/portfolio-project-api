@@ -60,7 +60,11 @@ h1 {
   align-items: center;
   width: 100%;
   color: white;
-  background-color: grey;
+  background-color: rgb(255, 255, 255);
+  background-image: url(./img/cover.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
   position: absolute;
   top: 50%;
   left: 0;
@@ -70,7 +74,12 @@ h1 {
   cursor: pointer;
 
   &:hover {
-    background-color: rgb(70, 70, 70);
+    // background-color: rgb(70, 70, 70);
+  }
+
+  &:after {
+    content: "Show Answer";
+    color: white;
   }
 }
 
