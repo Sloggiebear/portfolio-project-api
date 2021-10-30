@@ -1,7 +1,7 @@
-var countrylist = [];
+let countrylist = [];
 let localcountries;
-var filteredcountrylist = [];
-var enabledSettings = [];
+let filteredcountrylist = [];
+let enabledSettings = [];
 
 let AfricaList = [];
 let AmericasList = [];
@@ -63,13 +63,16 @@ function newCountry() {
 async function getCountries(apiURL) {
 
     //Check if a list of counrties is already stored in Local storage. If not, fetch list via API
-    if (localStorage.getItem("localcountries") === null || localStorage.length < 1) {
+    if (localStorage.getItem("localcountries") === null) {
         console.log("No local storage found");
 
         try {
-            let response = await fetch(apiURL);
-            rawlist = await response.json();
-            localcountries = await rawlist.filter(country => country.capital != "" );
+            const response = await fetch(apiURL)
+            const rawlist = await response.json();
+            localcountries = await rawlist.filter(country => country.capital != "" )
+
+            
+            
             console.log("download to: ", localcountries)
             localStorage.setItem("localcountries", JSON.stringify(localcountries));
             console.log("downlaoded and local countries", localcountries)
@@ -78,17 +81,13 @@ async function getCountries(apiURL) {
         } catch (error) {
             console.log("Sorry there was an error: ", error)
         }
-        // generateRegionalLists();
-        // newCountry();
         
     } else {
         console.log("Found Local storage");
         localcountries = JSON.parse(localStorage.getItem("localcountries"))
         countrylist = [...localcountries];
-        generateRegionalLists();
+        console.log("else - ", countrylist)
     }
-    
-
 }
 
 function getEnabledSettings() {
@@ -138,7 +137,11 @@ function generateRegionalLists() {
     OceaniaList = countrylist.filter(country => country.region == "Oceania" ); 
 }
 
-getCountries(apiURL)
-getEnabledSettings();
-generateRegionalLists();
-newCountry();
+async function caller () {
+    await getCountries(apiURL)
+    generateRegionalLists();
+    getEnabledSettings();
+    newCountry();
+}
+
+caller(apiURL)
