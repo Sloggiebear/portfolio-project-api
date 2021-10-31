@@ -60,34 +60,39 @@ function newCountry() {
     answer.innerHTML = country.capital; 
 }
 
-async function getCountries(apiURL) {
+// Removed this function because the free tier of api wont accept https requests and chrome wont process http requests
 
-    //Check if a list of counrties is already stored in Local storage. If not, fetch list via API
-    if (localStorage.getItem("localcountries") === null) {
-        console.log("No local storage found");
+// async function getCountries(apiURL) {
 
-        try {
-            const response = await fetch(apiURL)
-            const rawlist = await response.json();
-            localcountries = await rawlist.filter(country => country.capital != "" )
+//     //Check if a list of counrties is already stored in Local storage. If not, fetch list via API
+//     if (localStorage.getItem("localcountries") === null) {
+//         console.log("No local storage found");
 
-            
-            
-            console.log("download to: ", localcountries)
-            localStorage.setItem("localcountries", JSON.stringify(localcountries));
-            console.log("downlaoded and local countries", localcountries)
-            countrylist = [...localcountries];
-            
-        } catch (error) {
-            console.log("Sorry there was an error: ", error)
-        }
-        
-    } else {
-        console.log("Found Local storage");
-        localcountries = JSON.parse(localStorage.getItem("localcountries"))
-        countrylist = [...localcountries];
-        console.log("else - ", countrylist)
-    }
+//         try {
+//             const response = await fetch(apiURL)
+//             const rawlist = await response.json();
+//             localcountries = await rawlist.filter(country => country.capital != "" ) 
+//             console.log("download to: ", localcountries)
+//             localStorage.setItem("localcountries", JSON.stringify(localcountries));
+//             console.log("downlaoded and local countries", localcountries)
+//             countrylist = [...localcountries];
+
+//         } catch (error) {
+//             console.log("Sorry there was an error: ", error)
+//         }
+
+//     } else {
+//         console.log("Found Local storage");
+//         localcountries = JSON.parse(localStorage.getItem("localcountries"))
+//         countrylist = [...localcountries];
+//     }
+// }
+
+async function getCountries() {
+    const response = await fetch('data.json')
+    const rawlist = await response.json();
+    localcountries = await rawlist.filter(country => country.capital != "" );
+    countrylist = [...localcountries]; 
 }
 
 function getEnabledSettings() {
@@ -138,7 +143,7 @@ function generateRegionalLists() {
 }
 
 async function caller () {
-    await getCountries(apiURL)
+    await getCountries();
     generateRegionalLists();
     getEnabledSettings();
     newCountry();
