@@ -66,15 +66,12 @@ function newCountry() {
 
 //     //Check if a list of counrties is already stored in Local storage. If not, fetch list via API
 //     if (localStorage.getItem("localcountries") === null) {
-//         console.log("No local storage found");
 
 //         try {
 //             const response = await fetch(apiURL)
 //             const rawlist = await response.json();
 //             localcountries = await rawlist.filter(country => country.capital != "" ) 
-//             console.log("download to: ", localcountries)
 //             localStorage.setItem("localcountries", JSON.stringify(localcountries));
-//             console.log("downlaoded and local countries", localcountries)
 //             countrylist = [...localcountries];
 
 //         } catch (error) {
@@ -82,7 +79,6 @@ function newCountry() {
 //         }
 
 //     } else {
-//         console.log("Found Local storage");
 //         localcountries = JSON.parse(localStorage.getItem("localcountries"))
 //         countrylist = [...localcountries];
 //     }
@@ -96,7 +92,6 @@ async function getCountries() {
 }
 
 function getEnabledSettings() {
-    console.log("Getting the enabled settings");
     getRegions = [...document.getElementsByClassName('region')];
     enabledSettings = [];
     getRegions.forEach(element => {
@@ -125,9 +120,7 @@ function getEnabledSettings() {
         filteredcountrylist = []
         enabledSettings.forEach(element => {
             ref = eval(element+"List");
-            filteredcountrylist.push(ref);
-            console.log(filteredcountrylist)
-            
+            filteredcountrylist.push(ref);            
         });
         flattenedArray = filteredcountrylist.flat(2);
         filteredcountrylist = [...flattenedArray];
